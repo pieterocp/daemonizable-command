@@ -80,7 +80,7 @@ class ExampleCommand extends EndlessContainerAwareCommand
 	// Long operation to calculate the avarage score
 	private function calculateAvgScore()
 	{
-		sleep(5);
+		sleep(3);
 		return rand(1, 10);
 	}
 }

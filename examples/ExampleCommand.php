@@ -22,7 +22,7 @@ class ExampleCommand extends EndlessContainerAwareCommand
 		// Do one time initialization here
 	}
 
-	// Execute will be called in a endless loop
+	// Execute will be called in an endless loop
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		// Tell the user what we're going to do.
@@ -38,7 +38,7 @@ class ExampleCommand extends EndlessContainerAwareCommand
 
 		if ( false === file_put_contents('/tmp/acme-avg-score.txt', $score) )
 		{
-			// Set the returncode tot non-zero if there are any errors
+			// Set the returncode to non-zero if there are any errors
 			$this->setReturnCode(1);
 
 			// After this execute method returns we want the command exit
@@ -77,7 +77,7 @@ class ExampleCommand extends EndlessContainerAwareCommand
 		// and we can get killed if it takes to long!
 	}
 
-	// Long operation to calculate the avarage score
+	// Long operation to calculate the average score
 	private function calculateAvgScore()
 	{
 		sleep(5);

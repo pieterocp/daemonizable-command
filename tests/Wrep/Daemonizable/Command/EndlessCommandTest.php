@@ -79,7 +79,7 @@ class EndlessCommandTest extends TestCase
 
     public function testReturnCode(): void
     {
-        $this->assertEquals(0, $this->endlessCommand->getReturnCode(), 'Inital return code not zero');
+        $this->assertEquals(0, $this->endlessCommand->getReturnCode(), 'Initial return code not zero');
 
         $this->endlessCommand->setReturnCode(9);
         $this->assertEquals(9, $this->endlessCommand->getReturnCode(), 'Return code change did not persist');

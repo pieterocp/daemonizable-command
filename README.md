@@ -60,11 +60,11 @@ Run it with `php app/console acme:minimaldemo`.
 An [example with all the bells and whistles](examples/ExampleCommand.php) is also available and gives a good overview of best practices and how to do some basic things.
 
 ## How to daemonize?
-Alright, now we have an endless running command *in the foreground*. Usefull for debugging, useless in production! So how do we make this thing a real daemon?
+Alright, now we have an endless running command *in the foreground*. Useful for debugging, useless in production! So how do we make this thing a real daemon?
 
 You should use [systemd](http://www.freedesktop.org/wiki/Software/systemd) to daemonize the command. They provide very robust daemonization, start your daemon on a reboot and also monitor the process so it will try to restart it in the case of a crash.
 
-If you can't use Upstart or systemd, you can use `.lock` file with [LockHandler](http://symfony.com/doc/current/components/filesystem/lock_handler.html) with [crontab](https://wikipedia.org/wiki/Cron) wich start script every minute.
+If you can't use Upstart or systemd, you can use `.lock` file with [LockHandler](http://symfony.com/doc/current/components/filesystem/lock_handler.html) with [crontab](https://wikipedia.org/wiki/Cron) which start script every minute.
 
 An [example Upstart script](https://github.com/mac-cain13/daemonizable-command/blob/master/examples/example-systemd.service) is available, place your script in `/etc/init/` and start the daemon with `start example-daemon`. The name of the `.conf`-file will be the name of the daemon. A systemd example is not yet available, but it shouldn't be that hard to [figure out](http://patrakov.blogspot.nl/2011/01/writing-systemd-service-files.html).
 
@@ -72,7 +72,7 @@ An [example Upstart script](https://github.com/mac-cain13/daemonizable-command/b
 A few switches are available by default to make life somewhat easier:
 
 * Use `-q` to suppress all output
-* Use `--run-once` to only run the command once, usefull for debugging
+* Use `--run-once` to only run the command once, useful for debugging
 * Use `--detect-leaks` to print a memory usage report after each run, read more in the next section
 
 ## Memory usage and leaks
@@ -106,7 +106,7 @@ Cur.: 29856.46 KByte stable (0.000 %)
 
 The first 3 iterations may be unstable in terms of memory usage, but after that it should be stable. *Even a slight increase of memory usage will crash your daemon over time!*
 
-If you see an increase/stable/decrease loop you're probably save. It could be the garabage collector not cleaning up, you can fix this by using unset on variables to cleanup the memory yourself.
+If you see an increase/stable/decrease loop you're probably save. It could be the garbage collector not cleaning up, you can fix this by using unset on variables to cleanup the memory yourself.
 
 ### Busting some myths
 Calling `gc_collect_cycles()` will not help to resolve leaks. PHP will cleanup memory right in time all by itself, calling this method may slow down leaking memory, but will not solve it. Also it makes spotting leaks harder, so just don't use it.

@@ -6,7 +6,6 @@ use Acme\DemoBundle\Command\ExampleCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ExampleCommandTest extends TestCase
 {
@@ -24,10 +23,6 @@ class ExampleCommandTest extends TestCase
     public function testExecutionOnceCase(): void
     {
         $sut = new ExampleCommand();
-
-        // required otherwise the getContainer fails with a type error
-        $mockContainer = $this->createMock(ContainerInterface::class);
-        $sut->setContainer($mockContainer);
 
         $input = $this->createMock(InputInterface::class);
         $output = $this->createMock(OutputInterface::class);

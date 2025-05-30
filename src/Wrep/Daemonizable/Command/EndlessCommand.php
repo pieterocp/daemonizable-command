@@ -46,9 +46,11 @@ abstract class EndlessCommand extends Command
         $this->addOption('run-once', null, InputOption::VALUE_NONE,
             'Run the command just once, do not go into an endless loop');
         $this->addOption('detect-leaks', null, InputOption::VALUE_NONE, 'Output information about memory usage');
+    }
 
-        // Set our runloop as the executable code
-        parent::setCode([$this, 'runloop']);
+    public function __invoke(InputInterface $input, OutputInterface $output): int
+    {
+        return $this->runloop($input, $output);
     }
 
     /**
@@ -65,8 +67,8 @@ abstract class EndlessCommand extends Command
                 declare(ticks=1);
             }
 
-            pcntl_signal(SIGTERM, [$this, 'handleSignal']);
-            pcntl_signal(SIGINT, [$this, 'handleSignal']);
+            pcntl_signal(SIGTERM, $this->handleSignal(...));
+            pcntl_signal(SIGINT, $this->handleSignal(...));
         }
 
         // And now run the command
@@ -78,7 +80,7 @@ abstract class EndlessCommand extends Command
      *
      * @param int $signal The signal code to handle
      */
-    public function handleSignal(int $signal, int|false $previousExitCode = 0): int|false
+    public function handleSignal(int $signal, array|int|false $previousExitCode = 0): int|false
     {
         return match ($signal) {
             SIGTERM, SIGINT => $signal,
